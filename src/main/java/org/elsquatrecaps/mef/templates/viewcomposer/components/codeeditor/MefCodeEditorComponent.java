@@ -23,15 +23,14 @@ import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewCo
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.multiElements.GenericMultiElementsByTagAttributesMap;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.multiElements.GenericMultiElementsByType;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.multiElements.elements.GenericElementByType;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.multiElements.elements.GenericElementTagAttributesMap;
-import org.elsquatrecaps.mef.templates.viewcomposer.MefComposer;
+import org.elsquatrecaps.mef.templates.viewcomposer.BasicMefComposer;
 import org.springframework.data.annotation.PersistenceConstructor;
 
 /**
  *
  * @author josep
  */
-@ResponseViewComponentConfigurator(responseViewComposerClass = MefComposer.class)
+@ResponseViewComponentConfigurator(responseViewComposerClass = BasicMefComposer.class)
 public class MefCodeEditorComponent extends BaseResponseViewComponent{
 
     public MefCodeEditorComponent() {

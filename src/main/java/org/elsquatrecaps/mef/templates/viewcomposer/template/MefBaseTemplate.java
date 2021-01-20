@@ -20,18 +20,15 @@ import java.util.List;
 import java.util.Map;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.BaseResponseViewConfigData;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ConfigurationData;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewComponentConfigurator;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewConfigData;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.multiElements.GenericMultiElementsByTagAttributesMap;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.multiElements.GenericMultiElementsByType;
-import org.elsquatrecaps.mef.templates.viewcomposer.MefComposer;
 import org.springframework.data.annotation.PersistenceConstructor;
 
 /**
  *
  * @author josep
  */
-@ResponseViewComponentConfigurator(responseViewComposerClass = MefComposer.class)
 public class MefBaseTemplate extends BaseResponseViewConfigData{
     private static final String LEARNING_PROPOSAL_KEY = "learningProposal";
     private static final String NAV_ELEMENTS_KEY = "navComponentData";

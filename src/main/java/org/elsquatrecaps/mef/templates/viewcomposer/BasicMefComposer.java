@@ -27,11 +27,11 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author josep
  */
-public class MefComposer extends BaseResponseViewComposer{
-    public MefComposer() {
+public class BasicMefComposer extends BaseResponseViewComposer{
+    public BasicMefComposer() {
     }
 
-    public MefComposer(ResponseViewConfigData config) {
+    public BasicMefComposer(ResponseViewConfigData config) {
         super(config);
     }
     
