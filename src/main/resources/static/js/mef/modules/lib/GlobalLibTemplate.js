@@ -56,7 +56,11 @@ function getUtilities(){
 class LibForTemplates{
     constructor(){
         this.utils = getUtilities();
-        this.actions = {},
+        this.actions = {
+            alert:function(params){
+                alert(params.text);
+            }
+        },
         this.runActionButton = function(action, param){
             this.actions[action](param);
         };
