@@ -13,8 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.elsquatrecaps.flexiblelearning.starter;
+package org.elsquatrecaps.flexiblelearning.manager.starter;
 
+import org.elsquatrecaps.flexiblelearning.learningproposal.ActivityConfiguration;
+import org.elsquatrecaps.flexiblelearning.learningproposal.LearningProposalConfiguration;
+import org.elsquatrecaps.flexiblelearning.manager.GenericManager;
 import org.elsquatrecaps.flexiblelearning.learningstate.LearningState;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.ResponseViewComposer;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.ResponseViewComposerfactory;
@@ -35,7 +38,8 @@ import org.springframework.data.repository.query.QueryByExampleExecutor;
 public class MefStarterManager<PMLS extends PagingAndSortingRepository<LearningState, String>&QueryByExampleExecutor<LearningState>, 
         PMLP extends PagingAndSortingRepository<MefLearningProposalConfiguration, String>&QueryByExampleExecutor<MefLearningProposalConfiguration>, 
         PMA extends PagingAndSortingRepository<MefActivityConfiguration, String>&QueryByExampleExecutor<MefActivityConfiguration>>
-        extends GenericStaterManager<LearningState, PMLS, MefLearningProposalConfiguration, PMLP, MefActivityConfiguration, PMA>{
+        extends GenericManager<LearningState, PMLS, MefLearningProposalConfiguration, PMLP, MefActivityConfiguration, PMA>         
+        implements StarterManager<LearningState, PMLS, MefLearningProposalConfiguration, PMLP, MefActivityConfiguration, PMA>{
 
     public ModelAndView start(String studentId, String learningProposalId){
         ModelAndView modelAndView = null;

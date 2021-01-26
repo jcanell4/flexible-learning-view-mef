@@ -69,7 +69,13 @@ function getAjaxObject(){
             }
             var prop = __buildProp(url, method, data, undefined, undefined, "json");
             ret = $.ajax(prop).done(function(data){
-                complete(data);
+                if(Array.isArray(data)){
+                    for(var value of data){
+                        complete(value);
+                    }
+                }else{
+                    complete(data);
+                }
             }).fail(function(jhttp, st, thr){
                 onError(thr);
             });

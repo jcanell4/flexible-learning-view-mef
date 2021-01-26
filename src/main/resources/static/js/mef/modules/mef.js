@@ -176,57 +176,20 @@ function getNavManager(){
     return libNav;
 }
 
-//function getUtilities(){
-//    var utils={
-//        callMethod:function(obj, call, params){
-//            var length, propObj, props, aMethod, ret;
-//
-//            propObj = obj;
-//            props = call.split(".");
-//            length=props.length-1;
-//            for(var i=0; i<length; i++){
-//                propObj = propObj[props[i]];
-//            }
-//
-//            aMethod = /(^\w*)(\((.*)\))?/.exec(props[length]);
-//            if(aMethod[3]){
-//                var aparams = JSON.parse("["+aMethod[3]+"]");
-//                ret = propObj[aMethod[1]](aparams);
-//            }else{
-//                if(params){
-//                    ret = propObj[aMethod[1]](params);
-//                }else{
-//                    ret = propObj[aMethod[1]]();
-//                }
-//            }
-//            return ret;
-//        },
-//        getProperty:function(obj, property){
-//            var propObj, props;
-//
-//            propObj = obj;
-//            props = property.split(".");
-//            for(var i=0; i<props.length; i++){
-//                propObj = propObj[props[i]];
-//            }
-//            return propObj;
-//        }
-//    };
-//    return utils;
-//}
-
-//var LibTemplate = {
-//    libNav: getNavManager(),
-//    utils: getUtilities(),
-//    http: getAjaxObject(),
-//    actions:{},
-//    runActionButton: function(action, param){
-//        this.actions[action](param);
-//    }
-//};
-
 LibTemplate.libNav = getNavManager();
 LibTemplate.setHttpLib(getAjaxObject());
+
+Object.assign(LibTemplate.actions, {
+    showInfoMessage:function(param){
+        var $infoNode;
+        $infoNode = $("#infoMessagePanel");
+        $infoNode.removeClass("error");
+        $infoNode.removeClass("info");
+        $infoNode.removeClass("success");
+        $infoNode.addClass(param.type);
+        $infoNode.text(param.message);
+    }
+});
 
 const global = (0,eval)("this");
 global.mefData = LibTemplate;
@@ -253,31 +216,19 @@ $(document).ready(function(){
            LibTemplate.http.load("#"+onLoadReplaceId, url, method, data, function(){
                     if(afterLoading){
                         try{
-                            var message, $infoNode;
+                            var message;
                             message = LibTemplate.utils.callMethod(LibTemplate, afterLoading, onLoadReplaceId);
                             if(message){
-                                $infoNode = $("#infoMessagePanel");
-                                $infoNode.removeClass("error");
-                                $infoNode.removeClass("info");
-                                $infoNode.addClass("success");
-                                $infoNode.text(message);
+                                LibTemplate.showInfoMessage({"type":"sucess", "message":message});
                             }
                         }catch(err){
                             console.log(err.message);
                             //mostrar informació d'error!
-                            var $infoNode = $("#infoMessagePanel");
-                            $infoNode.removeClass("success");
-                            $infoNode.removeClass("info");
-                            $infoNode.addClass("error");
-                            $infoNode.text("Error: " + err.message);
+                            LibTemplate.showInfoMessage({"type":"error", "message":"Error: " + err.message});
                         }
                     }
                 }, function(errorResponse){
-                    var $infoNode = $("#infoMessagePanel");
-                    $infoNode.removeClass("success");
-                    $infoNode.removeClass("info");
-                    $infoNode.addClass("error");
-                    $infoNode.text("Error: " + errorResponse.responseJSON.error + " " + errorResponse.responseJSON.message); 
+                    LibTemplate.showInfoMessage({"type":"error", "message":"Error: " + errorResponse.responseJSON.error + " " + errorResponse.responseJSON.message});
                 }); 
             
         }else{     
