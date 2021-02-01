@@ -17,7 +17,6 @@ package org.elsquatrecaps.mef.templates.viewcomposer.components.miscelanea;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.BaseConfigurationData;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 
@@ -25,7 +24,7 @@ import org.springframework.data.annotation.PersistenceConstructor;
  *
  * @author josep
  */
-public class MefClueConfigData extends BaseConfigurationData{
+public class MefClueConfigData {
     private List<String> allowedClueIteratorTypes = new ArrayList<>();
     @Id
     private String clueSetId;

@@ -15,14 +15,14 @@
  */
 package org.elsquatrecaps.mef.templates.viewcomposer.components.codeeditor;
 
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.BaseConfigurationData;
+import java.io.Serializable;
 import org.springframework.data.annotation.PersistenceConstructor;
 
 /**
  *
  * @author josep
  */
-public class MefCodeEditorConfigData  extends BaseConfigurationData{
+public class MefCodeEditorConfigData  implements Serializable{
     private final CodeActivity codeActivity;
 
     public MefCodeEditorConfigData() {

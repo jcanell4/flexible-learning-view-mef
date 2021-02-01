@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.elsquatrecaps.mef.templates.viewcomposer.components.codeeditor;
+package org.elsquatrecaps.mef.learningproposal;
 
 import java.util.Map;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.BaseResponseViewComponent;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ConfigurationData;
+import org.elsquatrecaps.flexiblelearning.learningproposal.ActivityConfiguration;
+import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewComponent;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewComponentConfigurator;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewConfigData;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.multiElements.GenericMultiElementsByTagAttributesMap;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.multiElements.GenericMultiElementsByType;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.multiElements.elements.GenericElementByType;
 import org.elsquatrecaps.mef.templates.viewcomposer.BasicMefComposer;
+import org.elsquatrecaps.mef.templates.viewcomposer.components.codeeditor.CodeActivity;
+import org.elsquatrecaps.mef.templates.viewcomposer.components.codeeditor.MefCodeEditorConfigData;
 import org.springframework.data.annotation.PersistenceConstructor;
 
 /**
@@ -31,10 +32,10 @@ import org.springframework.data.annotation.PersistenceConstructor;
  * @author josep
  */
 @ResponseViewComponentConfigurator(responseViewComposerClass = BasicMefComposer.class)
-public class MefCodeEditorComponent extends BaseResponseViewComponent{
+public class MefCodeEditorActivityConfiguration extends ActivityConfiguration{
 
-    public MefCodeEditorComponent() {
-        super("mef/mef_code_act", "activityComponent");
+    public MefCodeEditorActivityConfiguration(String id) {
+        super(id, "mef/mef_code_act", "activityComponent");
         this.getConfigurationDataMap().put("activityComponentData", new MefCodeEditorConfigData());
         this.getLinks().add(new GenericElementByType("veetsplit"));
         this.getLinks().add(new GenericElementByType("codemirror"));
@@ -46,11 +47,11 @@ public class MefCodeEditorComponent extends BaseResponseViewComponent{
     }
     
     @PersistenceConstructor
-    protected MefCodeEditorComponent(Map<String, ConfigurationData> configurationDataMap, 
-           Map<String, ResponseViewConfigData> componentMap, GenericMultiElementsByType links, 
+    protected MefCodeEditorActivityConfiguration(String id, Map<String, Object> configurationDataMap, 
+           Map<String, ResponseViewComponent> componentMap, GenericMultiElementsByType links, 
            GenericMultiElementsByType scripts, GenericMultiElementsByType modules, 
            GenericMultiElementsByTagAttributesMap configComponentElements){
-        super("mef/mef_code_act", "activityComponent", configurationDataMap, 
+        super(id, "mef/mef_code_act", "activityComponent", configurationDataMap, 
                 componentMap, links, scripts, modules, configComponentElements);
     }
     

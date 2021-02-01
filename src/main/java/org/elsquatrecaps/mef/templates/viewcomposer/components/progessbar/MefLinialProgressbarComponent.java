@@ -16,9 +16,8 @@
 package org.elsquatrecaps.mef.templates.viewcomposer.components.progessbar;
 
 import java.util.Map;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.BaseResponseViewComponent;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ConfigurationData;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewConfigData;
+import org.elsquatrecaps.flexiblelearning.viewcomposer.components.BaseResponseViewComponentSingleFragment;
+import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewComponent;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.multiElements.GenericMultiElementsByTagAttributesMap;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.multiElements.GenericMultiElementsByType;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -27,7 +26,7 @@ import org.springframework.data.annotation.PersistenceConstructor;
  *
  * @author josep
  */
-public class MefLinialProgressbarComponent extends BaseResponseViewComponent{
+public class MefLinialProgressbarComponent extends BaseResponseViewComponentSingleFragment{
     
 
     public MefLinialProgressbarComponent() {
@@ -37,8 +36,8 @@ public class MefLinialProgressbarComponent extends BaseResponseViewComponent{
     
     @PersistenceConstructor
     protected MefLinialProgressbarComponent(String templateName, String fragmentName, 
-            Map<String, ConfigurationData> configurationDataMap, 
-            Map<String, ResponseViewConfigData> componentMap, GenericMultiElementsByType links, 
+            Map<String, Object> configurationDataMap, 
+            Map<String, ResponseViewComponent> componentMap, GenericMultiElementsByType links, 
             GenericMultiElementsByType scripts, GenericMultiElementsByType modules, 
             GenericMultiElementsByTagAttributesMap configComponentElements) {
         super(templateName, fragmentName, configurationDataMap, componentMap, links, scripts, modules, configComponentElements);

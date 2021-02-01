@@ -15,16 +15,16 @@
  */
 package org.elsquatrecaps.mef.templates.viewcomposer.components.progessbar;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.BaseConfigurationData;
 import org.springframework.data.annotation.PersistenceConstructor;
 
 /**
  *
  * @author josep
  */
-public class MefLinialProgressbarConfigData  extends BaseConfigurationData{
+public class MefLinialProgressbarConfigData  implements Serializable{
     private final List<ProgressBarNode> progressBarNodes;
 
     public MefLinialProgressbarConfigData() {

@@ -15,17 +15,14 @@
  */
 package org.elsquatrecaps.mef.templates.viewcomposer.components.miscelanea;
 
-import org.elsquatrecaps.mef.data.miscelanea.DefaultClue;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.BaseConfigurationData;
-import org.elsquatrecaps.mef.data.miscelanea.Clue;
 import org.elsquatrecaps.mef.data.miscelanea.Clue;
 import org.elsquatrecaps.mef.data.miscelanea.DefaultClue;
 
 /**
- *
+ * 
  * @author josep
  */
-public class ClueSetConfig extends BaseConfigurationData{
+public class ClueSetConfig{
     private String clueIteratorType;
     private String clueSetId;
     private Clue currentClue;

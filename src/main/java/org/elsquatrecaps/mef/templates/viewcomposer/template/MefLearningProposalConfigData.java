@@ -15,16 +15,16 @@
  */
 package org.elsquatrecaps.mef.templates.viewcomposer.template;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.BaseConfigurationData;
 import org.springframework.data.annotation.PersistenceConstructor;
 
 /**
  *
  * @author josep
  */
-public class MefLearningProposalConfigData extends BaseConfigurationData{
+public class MefLearningProposalConfigData implements Serializable{
     private String id;
     private String description;
     private String keywords;
@@ -32,6 +32,13 @@ public class MefLearningProposalConfigData extends BaseConfigurationData{
 
     public MefLearningProposalConfigData() {
         this.authors = new ArrayList<>();
+    }
+
+    public MefLearningProposalConfigData(String id, String description, String keywords) {
+        this.authors = new ArrayList<>();
+        this.id = id;
+        this.description = description;
+        this.keywords = keywords;
     }
 
     @PersistenceConstructor

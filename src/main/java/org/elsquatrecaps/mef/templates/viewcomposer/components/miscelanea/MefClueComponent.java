@@ -15,15 +15,11 @@
  */
 package org.elsquatrecaps.mef.templates.viewcomposer.components.miscelanea;
 
-import java.util.Collections;
 import java.util.HashMap;
-import org.elsquatrecaps.mef.templates.viewcomposer.components.codeeditor.*;
 import java.util.Map;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.BaseResponseViewComponent;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.BaseResponseViewComponentMultiFragment;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ConfigurationData;
+import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewComponent;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewComponentConfigurator;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewConfigData;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.multiElements.GenericMultiElementsByTagAttributesMap;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.multiElements.GenericMultiElementsByType;
 import org.elsquatrecaps.mef.templates.viewcomposer.DefaultClueMefComposer;
@@ -50,8 +46,8 @@ public class MefClueComponent extends BaseResponseViewComponentMultiFragment{
     }
     
     @PersistenceConstructor
-    protected MefClueComponent(Map<String, String> fragments, Map<String, ConfigurationData> configurationDataMap, 
-           Map<String, ResponseViewConfigData> componentMap, GenericMultiElementsByType links, 
+    protected MefClueComponent(Map<String, String> fragments, Map<String, Object> configurationDataMap, 
+           Map<String, ResponseViewComponent> componentMap, GenericMultiElementsByType links, 
            GenericMultiElementsByType scripts, GenericMultiElementsByType modules, 
            GenericMultiElementsByTagAttributesMap configComponentElements){
         super("mef/mef_clue_for_act", fragments, configurationDataMap, componentMap, 

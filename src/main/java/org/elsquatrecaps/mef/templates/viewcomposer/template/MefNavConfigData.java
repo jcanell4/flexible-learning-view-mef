@@ -5,16 +5,16 @@
  */
 package org.elsquatrecaps.mef.templates.viewcomposer.template;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.BaseConfigurationData;
 import org.springframework.data.annotation.PersistenceConstructor;
 
 /**
  *
  * @author josep
  */
-public class MefNavConfigData extends BaseConfigurationData{
+public class MefNavConfigData implements Serializable{
     private VideoResource video;
     private String learningProposalName;
     private String summary;

@@ -18,12 +18,12 @@ package org.elsquatrecaps.mef.templates.viewcomposer;
 import java.util.List;
 import org.elsquatrecaps.flexiblelearning.learningstate.LearningState;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.BaseResponseViewComposer;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewConfigData;
+import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewComponent;
 import org.elsquatrecaps.mef.templates.viewcomposer.components.miscelanea.ClueSetConfig;
-import org.elsquatrecaps.mef.data.miscelanea.DefaultClue;
 import org.elsquatrecaps.mef.templates.viewcomposer.components.miscelanea.MefClueComponent;
 import org.elsquatrecaps.mef.templates.viewcomposer.components.miscelanea.MefClueConfigData;
 import org.springframework.web.servlet.ModelAndView;
+import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewComponentSingleFragment;
 
 /**
  *
@@ -34,7 +34,7 @@ public class DefaultClueMefComposer extends BaseResponseViewComposer{
     public DefaultClueMefComposer() {
     }
 
-    public DefaultClueMefComposer(ResponseViewConfigData config) {
+    public DefaultClueMefComposer(ResponseViewComponent config) {
         super(config);
     }
 

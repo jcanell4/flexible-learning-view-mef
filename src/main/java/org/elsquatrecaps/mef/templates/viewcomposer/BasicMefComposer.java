@@ -18,10 +18,10 @@ package org.elsquatrecaps.mef.templates.viewcomposer;
 import java.util.List;
 import java.util.Map;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.BaseResponseViewComposer;
-import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewConfigData;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.multiElements.GenericMultiElementsByTagAttributesMap;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.multiElements.GenericMultiElementsByType;
 import org.springframework.web.servlet.ModelAndView;
+import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewComponent;
 
 /**
  *
@@ -31,7 +31,7 @@ public class BasicMefComposer extends BaseResponseViewComposer{
     public BasicMefComposer() {
     }
 
-    public BasicMefComposer(ResponseViewConfigData config) {
+    public BasicMefComposer(ResponseViewComponent config) {
         super(config);
     }
     
