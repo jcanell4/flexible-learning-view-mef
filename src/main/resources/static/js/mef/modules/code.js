@@ -112,12 +112,10 @@ $(document).ready(function(){
             t = new RequestTimerClass(
                 $(this).data("time"),
                 $(this).data("url"),
-                $(this).data("dataObject"),
                 $(this).data("requestMethod"),
-                $(this).data("callableObject"),
-                $(this).data("getDataToSend"),
-                {"onLoadReplaceId":"clueForm"},
-                LibTemplate
+                $(this).data("dataObject"),
+                $(this).data("getDataToSend"),                
+                {"onLoadReplaceId":"clueForm"}
         );     
         t.run();
         id = this.id;

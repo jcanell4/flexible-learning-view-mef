@@ -48,6 +48,5 @@ public class MefTimerConfig extends TimerConfig{
     private final void setDefault(){
         this.setAttribute(DATA_OBJECT_ATTR,  "timerObjectData");
         this.setAttribute(REQUEST_METHOD_ATTR, "POST");
-        this.setAttribute(CALLABLE_OBJECT_ATTR, "actions");
     }    
 }

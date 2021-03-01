@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import getAjaxObject from './lib/ajax.js';
-import LibTemplate from './lib/GlobalLibTemplate.js'
-
+import requestObject from './lib/ajax.js';
+import LibTemplate from './lib/GlobalLibTemplate.js';
+import RequestTimerClass from './lib/requestTimer.js';
 
 function getNavManager(){
     var libNav={
@@ -177,7 +177,13 @@ function getNavManager(){
 }
 
 LibTemplate.libNav = getNavManager();
-LibTemplate.setHttpLib(getAjaxObject());
+requestObject.callableObject=LibTemplate.actions;
+requestObject.processorDictionary=LibTemplate.processorDict;
+var lpId = $("meta[name='id']").attr("content");
+if(lpId){
+    requestObject.extraQuery = 'lp_id='+lpId;
+}        
+LibTemplate.setHttpLib(requestObject);
 
 Object.assign(LibTemplate.actions, {
     showInfoMessage:function(param){
@@ -245,6 +251,11 @@ $(document).ready(function(){
         LibTemplate.libNav.closeRelatedResources();
         LibTemplate.libNav.openWindowFromDataAttr(this);
     });
+    $("#dialog-jq").dialog({
+        autoOpen: false,
+        modal: true
+    });
+    
 });
 
 export {LibTemplate as default, getNavManager};

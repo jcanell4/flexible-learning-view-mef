@@ -1,21 +1,22 @@
+import requestObject from './ajax.js'
 import LibTemplate from './GlobalLibTemplate.js'
 
 function getRequestTimersManager(){
     var requestTimersManager = {
         timers: [],
 
-        setTimer: function(id, time, url, dataObject, method, callableObject, getDataToSend, baseObject){
+        setTimer: function(id, time, url, method, dataObject, getDataToSend, localParamForCallback, requestObject){
             var ret;
             if(time instanceof RequestTimerClass){
                 ret = time;                
             }else{
-                ret = new RequestTimerClass(time, url, dataObject, method, callableObject, getDataToSend, baseObject);
+                ret = new RequestTimerClass(time, url, method, dataObject, getDataToSend, localParamForCallback, requestObject);
             }
             this.timers[id] = ret;
             return ret;
         },
-        setTimerAndRun: function(id, time, url, dataObject, method, callableObject, getDataToSend, baseObject){
-            var ret = this.seTimer(id, time, url, dataObject, method, callableObject, getDataToSend, baseObject);
+        setTimerAndRun: function(id, time, url, method, dataObject, getDataToSend, localParamForCallback, requestObject){
+            var ret = this.setTimer(id, time, url, method, dataObject, getDataToSend, localParamForCallback, requestObject);
             ret.run();
             return ret;
         },
@@ -27,11 +28,10 @@ function getRequestTimersManager(){
 }
 
 class TimerDataConfig{
-    constructor(time, url, dataObject, method, callableObject){
+    constructor(time, url, dataObject, method){
         this.time = time;
         this.url = url;
         this.requestMethod = method;
-        this.callableObject = callableObject;
     }
     
     setTime(time){
@@ -49,11 +49,6 @@ class TimerDataConfig{
         return this;
     }
     
-    setCallableObject(callable){
-        this.callableObject = callable;
-        return this;
-    }
-    
     setGetDataToSend(getDataToSend){
         this.getDataToSend = getDataToSend;
         return this;
@@ -62,21 +57,20 @@ class TimerDataConfig{
 }
 
 class RequestTimerClass{
-    constructor(time, url, dataObject, method, callableObject, getDataToSend, localParamForCallback, baseObject){
-        this.baseObject = baseObject?baseObject:this;
+    constructor(time, url, method, dataObject, getDataToSend, localParamForCallback, requestObject){
         this.time = time;
         this.url = url;
         this._setDataObject(dataObject, getDataToSend);
         this.requestMethod=method;
-        this._setCallableObject(callableObject);
         this.localParamForCallback=localParamForCallback;
-    }
-
-    _setCallableObject(callableObject, stringOnly){
-        if(typeof callableObject === 'string'){
-            this.callableObject = LibTemplate.utils.getProperty(this.baseObject, callableObject);
-        }else if(!stringOnly){
-            this.callableObject = callableObject;
+        if(requestObject){
+            if(typeof requestObject === 'string'){
+                this.requestObject = LibTemplate.utils.getProperty(LibTemplate, requestObject);
+            }else{
+                this.requestObject = requestObject;
+            }
+        }else{
+            this.requestObject = LibTemplate.getHttpLib();
         }
     }
 
@@ -84,20 +78,28 @@ class RequestTimerClass{
         if(typeof dataObject === 'string'){
             this.dataElement = document.getElementById(dataObject);
             if(!this.dataElement){
-                this.dataObject = LibTemplate.utils.getProperty(this.baseObject, dataObject);
-                this.getDataToSend = getDataToSend?getDataToSend:"getDataToSend";
+                this.dataObject = LibTemplate.utils.getProperty(LibTemplate, dataObject);
+                this._setGetDataTosend(getDataToSend);
             }   
         }else if(!stringOnly && dataObject instanceof Element){
             this.dataElement = dataObject;
         }else if(!stringOnly){
             this.dataObject=dataObject;
-            this.getDataToSend = getDataToSend?getDataToSend:"getDataToSend";
+            this._setGetDataToSend(getDataToSend);
         }            
+    }
+    
+    _setGetDataTosend(getDataToSend){
+        if(getDataToSend){
+            this.getDataToSend = getDataToSend;
+        }else if(this.dataObject && typeof this.dataObject["getDataToSend"] === 'function'){
+            this.getDataToSend = "getDataToSend";
+        }
     }
 
     set(timerDataConfig){
         if(timerDataConfig.dataObject){
-            this._setDataObject(dataObject, getDataToSend, true);
+            this._setDataObject(timerDataConfig.dataObject, timerDataConfig.getDataToSend, true);
         }else if(timerDataConfig.getDataToSend){
             this.getDataToSend = timerDataConfig.getDataToSend;
         }
@@ -107,9 +109,6 @@ class RequestTimerClass{
         }
         if(timerDataConfig.requestMethod){
             this.requestMethod=timerDataConfig.requestMethod;
-        }
-        if(timerDataConfig.callableObject){
-            this._setCallableObject(timerDataConfig.callableObject, true);
         }
     }
 
@@ -125,35 +124,30 @@ class RequestTimerClass{
     stop(){
         clearTimeout(this.handler);
     }
+    
+    onResponse(jsonResponse){
+        this.stop();
+        this.requestObject.onResponse(jsonResponse);
+        if(jsonResponse.nextTimer){
+            this.set(jsonResponse.nextTimer);
+            this.run();
+        }
+    }
+    
+    onError(e){
+        this.stop();
+        this.requestObject.onError(e);
+    }
 
     request(){
-        var self = this;
+//        var self = this;
         var data = undefined;
         if(this.dataElement){
             data = $(this.dataElement).serialize();
         }else if(this.dataObject){
             data = this.dataObject[this.getDataToSend]();
         }
-        LibTemplate.http.requestRest(this.url, this.requestMethod, data,
-            function(jsonResponse){ //
-                self.stop();
-                if(jsonResponse.onReciveCallable){
-                    if(jsonResponse.onReciveCallable.params){
-                        self.callableObject[jsonResponse.onReciveCallable.name](jsonResponse.onReciveCallable.params, self.localParamForCallback);
-                    }else{
-                        self.callableObject[jsonResponse.onReciveCallable.name](localParamForCallback);
-                    }
-                }
-                if(jsonResponse.nextTimer){
-                    self.set(jsonResponse.nextTimer);
-                    self.run();
-                }
-            },
-            function(e){
-                self.stop();
-                throw e;
-            }
-        );
+        this.requestObject.requestRest(this.url, this.requestMethod, data, this.onResponse.bind(this), this.onError.bind(this));
     }
 }
 

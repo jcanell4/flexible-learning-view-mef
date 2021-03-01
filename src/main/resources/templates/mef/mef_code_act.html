@@ -105,7 +105,7 @@
     </main>
     <footer data-th-replace="pl_base_act.html :: footer">Footer</footer>
     <!-- timer -->
-   <mef-timer id='mainTimer' data-time="5000" data-url="autoTimerFeedback" data-data-object="timerObjectData" data-request-method="POST" data-callable-object="actions"></mef-timer>
+   <mef-timer id='mainTimer' data-time="5000" data-url="autoTimerFeedback" data-data-object="timerObjectData" data-request-method="POST"></mef-timer>
     <!-- codemirror mode -->
     <mef-mode data-th-if="${activityComponentData.getActivity().getEditor() instanceof T(org.elsquatrecaps.flexiblelearning.viewdata.learningproposal.activityComponentData.getActivity().CodeEditor)}" id='codemirrorMode' data-th-attr="data-mode-url=@{./js/codemirror/mode/{name}/{name}.js(name=${activityComponentData.getActivity().getEditor().getMode()})},data-mode-name=${activityComponentData.getActivity().getEditor().getMode()}" data-mode-url="./js/codemirror/mode/javascript/javascript.js" data-mode-name="javascript" data-bind=""></mef-mode>
    <!-- js -->

@@ -14,56 +14,29 @@
  * limitations under the License.
  */
 
-function getUtilities(){
-    var utils={
-        callMethod:function(obj, call, params){
-            var length, propObj, props, aMethod, ret;
-
-            propObj = obj;
-            props = call.split(".");
-            length=props.length-1;
-            for(var i=0; i<length; i++){
-                propObj = propObj[props[i]];
-            }
-
-            aMethod = /(^\w*)(\((.*)\))?/.exec(props[length]);
-            if(aMethod[3]){
-                var aparams = JSON.parse("["+aMethod[3]+"]");
-                ret = propObj[aMethod[1]](aparams);
-            }else{
-                if(params){
-                    ret = propObj[aMethod[1]](params);
-                }else{
-                    ret = propObj[aMethod[1]]();
-                }
-            }
-            return ret;
-        },
-        getProperty:function(obj, property){
-            var propObj, props;
-
-            propObj = obj;
-            props = property.split(".");
-            for(var i=0; i<props.length; i++){
-                propObj = propObj[props[i]];
-            }
-            return propObj;
-        }
-    };
-    return utils;
-}
+import utils from "./utilities.js";
+import * as processors from "./Processors.js";
 
 class LibForTemplates{
     constructor(){
-        this.utils = getUtilities();
+        var storage = {}
+        this.stateStorage = storage;
+        this.utils = utils;
+        this.processorDict = {
+            "setStateValue": new processors.SetStateValue(storage),
+            "ShowAlert": new processors.ShowAlert("dialog-jq")
+        };
         this.actions = {
             alert:function(params){
                 alert(params.text);
             }
-        },
+        };
         this.runActionButton = function(action, param){
             this.actions[action](param);
         };
+        this.getHttpLib = function(){
+            return this.http;
+        }
         this.setHttpLib = function(httpObject){
             this.http = httpObject;  
         }        

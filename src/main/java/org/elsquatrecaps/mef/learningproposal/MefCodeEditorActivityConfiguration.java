@@ -16,6 +16,7 @@
 package org.elsquatrecaps.mef.learningproposal;
 
 import java.util.Map;
+import org.elsquatrecaps.flexiblelearning.eventcomposer.components.ActivityEventProcessorConfiguration;
 import org.elsquatrecaps.flexiblelearning.learningproposal.ActivityConfiguration;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewComponent;
 import org.elsquatrecaps.flexiblelearning.viewcomposer.components.ResponseViewComponentConfigurator;
@@ -31,15 +32,19 @@ import org.springframework.data.annotation.PersistenceConstructor;
  *
  * @author josep
  */
-@ResponseViewComponentConfigurator(responseViewComposerClass = BasicMefComposer.class)
+@ResponseViewComponentConfigurator(
+        responseViewComposerClass = BasicMefComposer.class
+)
 public class MefCodeEditorActivityConfiguration extends ActivityConfiguration{
 
     public MefCodeEditorActivityConfiguration(String id) {
         super(id, "mef/mef_code_act", "activityComponent");
         this.getConfigurationDataMap().put("activityComponentData", new MefCodeEditorConfigData());
+        this.getLinks().add(new GenericElementByType("jquery-ui"));
         this.getLinks().add(new GenericElementByType("veetsplit"));
         this.getLinks().add(new GenericElementByType("codemirror"));
         this.getLinks().add(new GenericElementByType("mef_activity"));
+        this.getScripts().add(new GenericElementByType("jquery-ui"));
         this.getScripts().add(new GenericElementByType("veetsplit"));
         this.getScripts().add(new GenericElementByType("codemirror"));
         this.getModules().add(new GenericElementByType("mef_code_module"));
